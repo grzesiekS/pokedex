@@ -1,6 +1,8 @@
 import Axios from 'axios';
 
 /* SELECTORS */
+export const getPokemonList = ({pokemons}) => pokemons.pokemonList;
+export const getFetchStatus = ({pokemons}) => pokemons.loading;
 
 /* ACTIONS */
 
@@ -15,7 +17,7 @@ const FETCH_ERROR = createActionName('FETCH_ERROR');
 
 // action creators
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
-export const fetchSucess = payload => ({ payload, type: FETCH_SUCCESS });
+export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 
 /* thunk creators */
@@ -24,10 +26,9 @@ export const catchPokemons = () => {
     dispatch(fetchStarted());
 
     Axios
-      .get('https://pokeapi.co/api/v2/pokemon')
+      .get('https://pokeapi.co/api/v2/pokemon?limit=151')
       .then(res => {
-        console.log(res);
-        dispatch(fetchSucess(res.data));
+        dispatch(fetchSuccess(res.data));
       })
       .catch(err => {
         dispatch(fetchError(err.message || false));
@@ -55,6 +56,7 @@ export default function reducer(statePart = [], action = {}) {
           active: false,
           error: false,
         },
+        pokemonList: action.payload.results,
       };
     }
     case FETCH_ERROR: {
