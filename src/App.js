@@ -7,14 +7,14 @@ import './styles/global.scss';
 import './styles/bootstrap.scss';
 
 import MainLayout from './components/layout/MainLayout/MainLayout';
-import PokemonList from './components/features/PokemonList/PokemonListContainer';
+import HomePage from './components/views/HomePage';
 
 const App = () => (
   <Provider store={store}>
     <BrowserRouter>
       <MainLayout>
         <Switch>
-          <Route exact path={'/'} component={PokemonList} />
+          <Route exact path={'/'} component={HomePage} />
         </Switch>
       </MainLayout>
     </BrowserRouter>
