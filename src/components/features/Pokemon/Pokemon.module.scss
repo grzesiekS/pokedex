@@ -1,0 +1,58 @@
+@import "../../../styles/settings.scss";
+
+.pokemonLink {
+  margin: 0 35px 15px 0;
+  border: 2px solid $pokemon-border-color;
+  transition: transform 0.5s;
+  color: $pokemon-link-color;
+
+  &:nth-child(3n) {
+    margin-right: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: none;
+    color: $pokemon-hover-color;
+    transform: scale(1.1);
+  }
+
+}
+
+.pokemonName {
+  font-size: 35px;
+  font-family: $font_bangers;
+  margin: 7px;
+}
+
+@media (max-width: 768px) {
+  .pokemonLink {
+    
+    &:nth-child(3n) {
+      margin-right: 35px;
+    }
+
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .pokemonLink {
+    margin-right: 20px;
+    margin-left: 20px;
+
+    &:nth-child(3n) {
+      margin-right: 20px;
+    }
+
+    &:nth-child(2n) {
+      margin-right: 20px;
+    }
+  }
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Pokemon from '../Pokemon/Pokemon';
+
 import styles from './PokemonList.module.scss';
 
 class PokemonList extends React.Component {
@@ -18,15 +20,13 @@ class PokemonList extends React.Component {
     return (
       <section className={styles.pokemonList}>
         <div className='container'>
-          <div className='row'>
+          <div className='row justify-content-center'>
             {fetchStatus === undefined || fetchStatus.active
               ?
               <p>Loading</p>
               :
               pokemonList.map(pokemon => (
-                <div key={pokemon.name} className='col-sm-12 col-md-6 col-lg-3'>
-                  <p>{pokemon.name}</p>
-                </div>
+                <Pokemon key={pokemon.name} name={pokemon.name} />
               ))
             }
           </div>

@@ -7,6 +7,12 @@ $font_press_start_2p: 'Press Start 2P', cursive; // pokedex
 
 // COLORS
 $chi-gong: #d63031;
+$black: #000000;
 
 // HEADER - settings
 $header-link-color: $chi-gong;
+
+// POKEMON - settings
+$pokemon-link-color: $black;
+$pokemon-hover-color: $chi-gong;
+$pokemon-border-color: $chi-gong;
