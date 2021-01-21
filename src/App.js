@@ -7,7 +7,7 @@ import './styles/global.scss';
 import './styles/bootstrap.scss';
 
 import MainLayout from './components/layout/MainLayout/MainLayout';
-import PokemonList from './components/features/PokemonList/PokemonList';
+import PokemonList from './components/features/PokemonList/PokemonListContainer';
 
 const App = () => (
   <Provider store={store}>
