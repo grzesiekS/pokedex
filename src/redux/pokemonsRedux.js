@@ -37,6 +37,21 @@ export const catchPokemons = () => {
   };
 };
 
+export const catchSelectedPokemon = pokemonName => {
+  return dispatch => {
+    dispatch(fetchStarted());
+
+    Axios
+      .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+      .then(res => {
+        dispatch(res.data, pokemonName);
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || false));
+      });
+  };
+};
+
 // reducer
 export default function reducer(statePart = [], action = {}) {
   switch (action.type) {
