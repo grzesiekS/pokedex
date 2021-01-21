@@ -6,7 +6,9 @@ import './styles/bootstrap.scss';
 import MainLayout from './components/layout/MainLayout/MainLayout';
 
 const App = () => (
-  <MainLayout />
+  <MainLayout>
+
+  </MainLayout>
 );
 
 export default App;
