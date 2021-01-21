@@ -3,11 +3,14 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import globalReducer from './globalRedux';
+import pokemonsReducer from './pokemonsRedux';
 
 const initialState = {};
 
 // define reducers
-const reducers = {};
+const reducers = {
+  pokemons: pokemonsReducer,
+};
 
 // add blank reducers for initial state properties without reducers
 Object.keys(initialState).forEach(item => {
