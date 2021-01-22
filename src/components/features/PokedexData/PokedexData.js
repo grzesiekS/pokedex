@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
+import Loading from '../../common/Loading/Loading';
+
 import styles from './PokedexData.module.scss';
 
 class PokedexData extends React.Component {
@@ -22,7 +24,7 @@ class PokedexData extends React.Component {
           <h1 className={styles.title}>{pokemonName}</h1>
           {fetchStatus === undefined || fetchStatus.active
             ?
-            <p>Loading</p>
+            <Loading />
             :
             <div className={clsx(styles.pokdex,'row justify-content-around')}>
               <div className='col-md-auto'>
