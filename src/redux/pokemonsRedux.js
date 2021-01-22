@@ -11,6 +11,8 @@ export const getPokemonArtwork = ({pokemons}) => pokemons.pokemonData === undefi
   ? null 
   : pokemons.pokemonData.sprites.other['official-artwork'].front_default;
 
+export const getSearchValue = ({pokemons}) => pokemons.searchValue;
+
 /* ACTIONS */
 
 // action name creator
@@ -22,12 +24,14 @@ const FETCH_START = createActionName('FETCH_START');
 const FETCH_MULTIPLE_SUCCESS = createActionName('FETCH_MULTIPLE_SUCCESS');
 const FETCH_SELECTED_SUCESS = createActionName('FETCH_SELECTED_SUCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
+const HANDLE_SEARCH_VALUE = createActionName('HANDLE_SEARCH_VALUE');
 
 // action creators
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchMultipleSuccess = payload => ({ payload, type: FETCH_MULTIPLE_SUCCESS });
 export const fetchSelectedSuccess = payload => ({ payload, type: FETCH_SELECTED_SUCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
+export const handleSearchValue = payload => ({ payload, type: HANDLE_SEARCH_VALUE});
 
 /* thunk creators */
 export const catchPokemons = () => {
@@ -99,6 +103,12 @@ export default function reducer(statePart = [], action = {}) {
           active: false,
           error: action.payload,
         },
+      };
+    }
+    case HANDLE_SEARCH_VALUE: {
+      return {
+        ...statePart,
+        searchValue: action.payload.value,
       };
     }
     default:
