@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Pokemon from '../Pokemon/Pokemon';
+import Loading from '../../common/Loading/Loading';
 
 import styles from './PokemonList.module.scss';
 
@@ -23,7 +24,7 @@ class PokemonList extends React.Component {
           <div className='row justify-content-center'>
             {fetchStatus === undefined || fetchStatus.active
               ?
-              <p>Loading</p>
+              <Loading />
               :
               pokemonList.map(pokemon => (
                 <Pokemon key={pokemon.name} name={pokemon.name} />
