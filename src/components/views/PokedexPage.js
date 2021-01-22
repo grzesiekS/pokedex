@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import PokedexData from '../features/PokedexData/PokedexDataContainer';
+
 const PokedexPage = props => (
-  <h1>{props.match.params.pokemonName}</h1>
+  <PokedexData pokemonName={props.match.params.pokemonName} />
 );
 
 PokedexPage.propTypes = {

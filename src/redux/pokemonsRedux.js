@@ -3,6 +3,13 @@ import Axios from 'axios';
 /* SELECTORS */
 export const getPokemonList = ({pokemons}) => pokemons.pokemonList;
 export const getFetchStatus = ({pokemons}) => pokemons.loading;
+export const getPokemonStats = ({pokemons}) => pokemons.pokemonData === undefined 
+  ? [] 
+  : pokemons.pokemonData.stats;
+
+export const getPokemonArtwork = ({pokemons}) => pokemons.pokemonData === undefined 
+  ? null 
+  : pokemons.pokemonData.sprites.other['official-artwork'].front_default;
 
 /* ACTIONS */
 
@@ -12,12 +19,14 @@ const createActionName = name => `app/${reducerName}/${name}`;
 
 // action type
 const FETCH_START = createActionName('FETCH_START');
-const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
+const FETCH_MULTIPLE_SUCCESS = createActionName('FETCH_MULTIPLE_SUCCESS');
+const FETCH_SELECTED_SUCESS = createActionName('FETCH_SELECTED_SUCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
 
 // action creators
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
-export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
+export const fetchMultipleSuccess = payload => ({ payload, type: FETCH_MULTIPLE_SUCCESS });
+export const fetchSelectedSuccess = payload => ({ payload, type: FETCH_SELECTED_SUCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 
 /* thunk creators */
@@ -28,7 +37,7 @@ export const catchPokemons = () => {
     Axios
       .get('https://pokeapi.co/api/v2/pokemon?limit=151')
       .then(res => {
-        dispatch(fetchSuccess(res.data));
+        dispatch(fetchMultipleSuccess(res.data));
       })
       .catch(err => {
         dispatch(fetchError(err.message || false));
@@ -40,11 +49,10 @@ export const catchPokemons = () => {
 export const catchSelectedPokemon = pokemonName => {
   return dispatch => {
     dispatch(fetchStarted());
-
     Axios
       .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
       .then(res => {
-        dispatch(res.data, pokemonName);
+        dispatch(fetchSelectedSuccess(res.data));
       })
       .catch(err => {
         dispatch(fetchError(err.message || false));
@@ -64,7 +72,7 @@ export default function reducer(statePart = [], action = {}) {
         },
       };
     }
-    case FETCH_SUCCESS: {
+    case FETCH_MULTIPLE_SUCCESS: {
       return {
         ...statePart,
         loading: {
@@ -72,6 +80,16 @@ export default function reducer(statePart = [], action = {}) {
           error: false,
         },
         pokemonList: action.payload.results,
+      };
+    }
+    case FETCH_SELECTED_SUCESS: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        pokemonData: action.payload,
       };
     }
     case FETCH_ERROR: {
