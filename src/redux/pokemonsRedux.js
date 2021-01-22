@@ -37,18 +37,29 @@ export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 export const handleSearchValue = payload => ({ payload, type: HANDLE_SEARCH_VALUE});
 
 /* thunk creators */
+
 export const catchPokemons = () => {
   return dispatch => {
     dispatch(fetchStarted());
 
     Axios
-      .get('https://pokeapi.co/api/v2/pokemon?limit=151')
+      .get('https://pokeapi.co/api/v2/pokemon?limit=1')
       .then(res => {
-        dispatch(fetchMultipleSuccess(res.data));
+
+        Axios
+          .get(`https://pokeapi.co/api/v2/pokemon?limit=${res.data.count}`)
+          .then(res => {
+            dispatch(fetchMultipleSuccess(res.data));
+          })
+          .catch(err => {
+            dispatch(fetchError(err.message || false));
+          });
+
       })
       .catch(err => {
         dispatch(fetchError(err.message || false));
       });
+    
 
   };
 };
