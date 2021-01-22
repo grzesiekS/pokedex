@@ -8,6 +8,7 @@ import './styles/bootstrap.scss';
 
 import MainLayout from './components/layout/MainLayout/MainLayout';
 import HomePage from './components/views/HomePage';
+import PokedexPage from './components/views/PokedexPage';
 
 const App = () => (
   <Provider store={store}>
@@ -15,6 +16,7 @@ const App = () => (
       <MainLayout>
         <Switch>
           <Route exact path={'/'} component={HomePage} />
+          <Route exact path={'/pokemons/:pokemonName'} component={PokedexPage} />
         </Switch>
       </MainLayout>
     </BrowserRouter>
