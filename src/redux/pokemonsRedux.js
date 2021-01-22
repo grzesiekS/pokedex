@@ -1,7 +1,10 @@
 import Axios from 'axios';
 
 /* SELECTORS */
-export const getPokemonList = ({pokemons}) => pokemons.pokemonList;
+export const getPokemonList = ({pokemons}) => pokemons.pokemonList === undefined 
+  ? [] : pokemons.pokemonList
+    .filter(pokemon => pokemon.name.includes(pokemons.searchValue || ''));
+
 export const getFetchStatus = ({pokemons}) => pokemons.loading;
 export const getPokemonStats = ({pokemons}) => pokemons.pokemonData === undefined 
   ? [] 
