@@ -2,10 +2,20 @@
 
 .pokedexData {
   margin-top: 80px;
+  font-family: $font_press_start_2p;
 }
 
 .title {
   text-align: center;
   text-transform: uppercase;
-  font-family: $font_press_start_2p;
+}
+
+.pokemonImage {
+  width: $pokedexData-image-width;
+  height: $pokedexData-image-height;
+  object-fit: cover;
+}
+
+.pokdex {
+  margin-top: 75px;
 }
