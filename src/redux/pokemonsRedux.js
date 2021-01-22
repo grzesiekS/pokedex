@@ -3,8 +3,13 @@ import Axios from 'axios';
 /* SELECTORS */
 export const getPokemonList = ({pokemons}) => pokemons.pokemonList;
 export const getFetchStatus = ({pokemons}) => pokemons.loading;
-export const getPokemonStats = ({pokemons}) => pokemons.pokemonData.stats;
-export const getPokemonArtwork = ({pokemons}) => pokemons.pokemonData.sprites.other['official-artwork'];
+export const getPokemonStats = ({pokemons}) => pokemons.pokemonData === undefined 
+  ? [] 
+  : pokemons.pokemonData.stats;
+
+export const getPokemonArtwork = ({pokemons}) => pokemons.pokemonData === undefined 
+  ? null 
+  : pokemons.pokemonData.sprites.other['official-artwork'].front_default;
 
 /* ACTIONS */
 
