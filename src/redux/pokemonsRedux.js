@@ -39,27 +39,24 @@ export const handleSearchValue = payload => ({ payload, type: HANDLE_SEARCH_VALU
 /* thunk creators */
 
 export const catchPokemons = () => {
-  return dispatch => {
+  return async dispatch => {
     dispatch(fetchStarted());
 
-    Axios
-      .get('https://pokeapi.co/api/v2/pokemon?limit=1')
-      .then(res => {
+    try {
+      let res = await Axios.get('https://pokeapi.co/api/v2/pokemon?limit=1');
+      
+      Axios
+        .get(`https://pokeapi.co/api/v2/pokemon?limit=${res.data.count}`)
+        .then(res => {
+          dispatch(fetchMultipleSuccess(res.data));
+        })
+        .catch(err => {
+          dispatch(fetchError(err.message || false));
+        });
 
-        Axios
-          .get(`https://pokeapi.co/api/v2/pokemon?limit=${res.data.count}`)
-          .then(res => {
-            dispatch(fetchMultipleSuccess(res.data));
-          })
-          .catch(err => {
-            dispatch(fetchError(err.message || false));
-          });
-
-      })
-      .catch(err => {
-        dispatch(fetchError(err.message || false));
-      });
-    
+    } catch(err) {
+      dispatch(fetchError(err.message || false));
+    }
 
   };
 };
