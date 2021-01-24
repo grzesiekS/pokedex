@@ -27,10 +27,10 @@ class PokedexData extends React.Component {
             <Loading />
             :
             <div className={clsx(styles.pokdex,'row justify-content-around')}>
-              <div className='col-md-auto'>
+              <div className='col-md-12 col-lg-6'>
                 <img className={styles.pokemonImage} src={pokemonArtwork} alt={pokemonName} />
               </div>
-              <div className='col-md-auto align-self-center'>
+              <div className='col-md-8 col-lg-6 align-self-center'>
                 <ul className='list-group'>
                   {pokemonStats.map(stats => (
                     <li key={stats.stat.name} className='list-group-item'>{`${stats.stat.name}: ${stats.base_stat}`}</li>
